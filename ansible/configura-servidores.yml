@@ -4,8 +4,8 @@
   user: admin
   become: yes
   roles:
+    - all-hosts
     - instala-repo-zabbix
-    - instala-repo-docker
 
 - name: Instala os pacotes que são necessários no zabbix-server
   gather_facts: false
@@ -21,5 +21,6 @@
   user: admin
   become: yes
   roles:
+    - instala-repo-docker
     - zabbix-client
  

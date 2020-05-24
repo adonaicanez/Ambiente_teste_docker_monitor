@@ -2,7 +2,8 @@
   apt:
     name: zabbix-server-pgsql
     state: present
-    update_cache: yes
 
-
-
+- name: Instalando o pacote zabbix-frontend-php
+  apt:
+    name: zabbix-frontend-php
+    state: present
