@@ -1,0 +1,11 @@
+- name: Instala o Docker-ce
+  apt:
+    name: docker-ce
+    state: present
+    update-cache: yes
+
+- name: Instala o git
+  apt:
+    name: git
+    state: present
+

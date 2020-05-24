@@ -1,0 +1,4 @@
+---
+# tasks file for instala-repo-zabbix
+
+- include: instala-repo-zabbix.yml

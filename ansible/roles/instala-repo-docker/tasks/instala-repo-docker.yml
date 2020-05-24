@@ -1,0 +1,10 @@
+- name: 'Adicionando a Chave do Repositório do Docker'
+  apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+
+- name: 'Adicionando o Repositório do Docker'
+  apt_repository:
+    filename: docker
+    repo: 'deb [arch=amd64] https://download.docker.com/linux/debian buster stable'
+    state: present

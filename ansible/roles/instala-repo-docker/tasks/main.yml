@@ -1,0 +1,4 @@
+---
+# tasks file for instala-repo-docker
+
+- include: instala-repo-docker.yml

@@ -1,0 +1,8 @@
+- name: Instalando o pacote zabbix-server
+  apt:
+    name: zabbix-server-pgsql
+    state: present
+    update_cache: yes
+
+
+

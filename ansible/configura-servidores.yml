@@ -1,0 +1,25 @@
+- name: Instala os pacotes necessários nos servidores para testar o docker-monitor
+  gather_facts: false
+  hosts: all
+  user: admin
+  become: yes
+  roles:
+    - instala-repo-zabbix
+    - instala-repo-docker
+
+- name: Instala os pacotes que são necessários no zabbix-server
+  gather_facts: false
+  hosts: zabbixserver
+  user: admin
+  become: yes
+  roles:
+    - zabbix-server
+
+- name: Instala os pacotes que são necessários no zabbix-client
+  gather_facts: false
+  hosts: zabbixclient
+  user: admin
+  become: yes
+  roles:
+    - zabbix-client
+ 
