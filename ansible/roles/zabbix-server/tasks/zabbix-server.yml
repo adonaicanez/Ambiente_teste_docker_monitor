@@ -3,7 +3,66 @@
     name: zabbix-server-pgsql
     state: present
 
+- name: Marcando o zabbix-server para iniciar com o servidor
+  systemd:
+    name: zabbix-server
+    enabled: yes
+
+- name: Marcando o zabbix-sgent para iniciar com o servidor
+  systemd:
+    name: zabbix-agent
+    enabled: yes
+
 - name: Instalando o pacote zabbix-frontend-php
   apt:
     name: zabbix-frontend-php
     state: present
+
+- name: Instalando pacotes faltantes do php
+  apt:
+    name: ["php7.3-pgsql","python-psycopg2","acl"] 
+    state: present
+ 
+- name: Marcando o apache para inicializar com o computador
+  systemd:
+    name: apache2
+    enabled: yes
+
+- name: setando configuração do php
+  lineinfile:
+    path: /etc/php/7.3/apache2/php.ini
+    regex: '^;date.timezone ='
+    line: 'date.timezone = America/Belem'
+
+- name: Reiniciando o apache2
+  systemd:
+    name: apache2
+    state: restarted
+    daemon_reload: yes
+
+
+- name: Cria o banco de dados para o zabbix usar
+  become: yes
+  become_user: postgres
+  postgresql_db:
+    name: zabbix
+    encoding: Unicode
+    template: template0
+    state: present
+
+- name: Inserindo os dados iniciais na tabela do zabbix
+  become: yes
+  become_user: postgres
+  postgresql_db:
+    name: zabbix
+    state: restore
+    target: /usr/share/doc/zabbix-server-pgsql/create.sql.gz
+
+- name: Criando o usuario do banco de dados postgres
+  become: yes
+  become_user: postgres
+  postgresql_user:
+    db: zabbix
+    name: zabbix
+    password: senha13579
+    priv: ALL
