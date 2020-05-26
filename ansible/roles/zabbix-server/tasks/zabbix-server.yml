@@ -15,7 +15,7 @@
 
 - name: Instalando o pacote zabbix-frontend-php
   apt:
-    name: zabbix-frontend-php
+    name: ["zabbix-frontend-php", "zabbix-apache-conf"]
     state: present
 
 - name: Instalando pacotes faltantes do php
@@ -40,29 +40,42 @@
     state: restarted
     daemon_reload: yes
 
+- name: Cria o banco de dados para o zabbix usar
+  become: yes
+  become_user: postgres
+  postgresql_db:
+    name: zabbix
+    encoding: Unicode
+    template: template0
+    state: present
 
-#- name: Cria o banco de dados para o zabbix usar
-#  become: yes
-#  become_user: postgres
-#  postgresql_db:
-#    name: zabbix
-#    encoding: Unicode
-#    template: template0
-#    state: present
-#
-#- name: Inserindo os dados iniciais na tabela do zabbix
-#  become: yes
-#  become_user: postgres
-#  postgresql_db:
-#    name: zabbix
-#    state: restore
-#    target: /usr/share/doc/zabbix-server-pgsql/create.sql.gz
-#
-#- name: Criando o usuario do banco de dados postgres
-#  become: yes
-#  become_user: postgres
-#  postgresql_user:
-#    db: zabbix
-#    name: zabbix
-#    password: senha13579
-#    priv: ALL
+- name: Criando o usuario do banco de dados postgres
+  become: yes
+  become_user: postgres
+  postgresql_user:
+    db: zabbix
+    name: zabbix
+    password: senha13579
+    priv: ALL
+    role_attr_flags: CREATEDB,SUPERUSER
+
+- name: Cria o banco de dados para o zabbix usar
+  become: yes
+  become_user: postgres
+  postgresql_db:
+    name: zabbix
+    owner: zabbix
+
+- name: Inserindo os dados iniciais na tabela do zabbix
+  become: yes
+  become_user: postgres
+  postgresql_db:
+    name: zabbix
+    state: restore
+    target: /usr/share/doc/zabbix-server-pgsql/create.sql.gz
+
+- name: Definindo a senha do arquivo zabbix_server 
+  lineinfile:
+    path: /etc/zabbix/zabbix_server.conf
+    regex: '^# DBPassword='
+    line: 'DBPassword=senha13579'

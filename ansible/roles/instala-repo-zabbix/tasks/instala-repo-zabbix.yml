@@ -1,16 +1,16 @@
 - name: 'Download do arquivo' 
   get_url:
-    url: http://repo.zabbix.com/zabbix/4.0/debian/pool/main/z/zabbix-release/zabbix-release_4.0-3+buster_all.deb
-    dest: /root/zabbix-release_4.0-3+buster_all.deb
+    url: http://repo.zabbix.com/zabbix/4.4/debian/pool/main/z/zabbix-release/zabbix-release_4.4-1+buster_all.deb
+    dest: /root/zabbix-release_4.4-1+buster_all.deb
     mode: '0764'
 
 - name: 'Instalando o repositorio do zabbix'
   apt:
-    deb: /root/zabbix-release_4.0-3+buster_all.deb
+    deb: /root/zabbix-release_4.4-1+buster_all.deb
 
-- name: 'Removendo o arquivo zabbix-release_4.0-3+buster_all.deb'
+- name: 'Removendo o arquivo zabbix-release_4.4-1+buster_all.deb'
   file:
-    path: /root/zabbix-release_4.0-3+buster_all.deb
+    path: /root/zabbix-release_4.4-1+buster_all.deb
     state: absent
 
 - name: 'Instalando o pacote do zabbix-agent'

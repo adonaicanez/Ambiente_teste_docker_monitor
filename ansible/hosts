@@ -1,8 +1,8 @@
 [zabbixserver]
-18.206.76.251
+34.204.177.59
 
 [zabbixclient]
-3.93.75.218
+3.81.29.241
 
 [all:vars]
 ansible_python_interpreter=python
