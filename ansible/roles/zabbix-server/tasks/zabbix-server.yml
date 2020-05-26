@@ -41,28 +41,28 @@
     daemon_reload: yes
 
 
-- name: Cria o banco de dados para o zabbix usar
-  become: yes
-  become_user: postgres
-  postgresql_db:
-    name: zabbix
-    encoding: Unicode
-    template: template0
-    state: present
-
-- name: Inserindo os dados iniciais na tabela do zabbix
-  become: yes
-  become_user: postgres
-  postgresql_db:
-    name: zabbix
-    state: restore
-    target: /usr/share/doc/zabbix-server-pgsql/create.sql.gz
-
-- name: Criando o usuario do banco de dados postgres
-  become: yes
-  become_user: postgres
-  postgresql_user:
-    db: zabbix
-    name: zabbix
-    password: senha13579
-    priv: ALL
+#- name: Cria o banco de dados para o zabbix usar
+#  become: yes
+#  become_user: postgres
+#  postgresql_db:
+#    name: zabbix
+#    encoding: Unicode
+#    template: template0
+#    state: present
+#
+#- name: Inserindo os dados iniciais na tabela do zabbix
+#  become: yes
+#  become_user: postgres
+#  postgresql_db:
+#    name: zabbix
+#    state: restore
+#    target: /usr/share/doc/zabbix-server-pgsql/create.sql.gz
+#
+#- name: Criando o usuario do banco de dados postgres
+#  become: yes
+#  become_user: postgres
+#  postgresql_user:
+#    db: zabbix
+#    name: zabbix
+#    password: senha13579
+#    priv: ALL

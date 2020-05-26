@@ -5,7 +5,7 @@ resource "aws_instance" "zabbix_server" {
   instance_type          = "t2.micro"
   subnet_id              = "subnet-f1c30eff"
   key_name               = "key-3-us-east-1"
-  vpc_security_group_ids = ["${aws_security_group.allow_port_22.id}","${aws_security_group.allow_port_10050.id}","${aws_security_group.allow_port_80.id}"]
+  vpc_security_group_ids = ["${aws_security_group.allow_port_22.id}","${aws_security_group.allow_port_10051.id}","${aws_security_group.allow_port_80.id}"]
 
   root_block_device {
     volume_type           = "standard"
@@ -39,7 +39,7 @@ resource "aws_instance" "zabbix_client" {
   instance_type          = "t2.micro"
   subnet_id              = "subnet-f1c30eff"
   key_name               = "key-3-us-east-1"
-  vpc_security_group_ids = ["${aws_security_group.allow_port_22.id}"]
+  vpc_security_group_ids = ["${aws_security_group.allow_port_22.id}","${aws_security_group.allow_port_10050.id}"]
 
   root_block_device {
     volume_type           = "standard"

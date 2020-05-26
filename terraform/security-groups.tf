@@ -72,3 +72,21 @@ resource "aws_security_group" "allow_port_10050" {
     Name = "allow_access_port_10050"
   }
 }
+
+resource "aws_security_group" "allow_port_10051" {
+  provider    = aws.virginia
+  name        = "allow_port_10051"
+  description = "Libera entrada na porta 10051"
+  vpc_id      = "vpc-ef91b595"
+
+  ingress {
+    from_port   = 10051
+    to_port     = 10051
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "allow_access_port_10051"
+  }
+}
